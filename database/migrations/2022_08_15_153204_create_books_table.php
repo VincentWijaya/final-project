@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('publisher');
             $table->string('published');
             $table->string('isbn');
+            $table->enum('status', ['Rented', 'Broken', 'Available'])->default('Available');
             $table->timestamps();
         });
     }
