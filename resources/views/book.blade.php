@@ -5,15 +5,69 @@
       </h2>
   </x-slot>
 
+  <script>
+    $(document).ready(function(){
+      $("#published").datepicker({
+        minViewMode: 2,
+         format: 'yyyy'
+      });   
+    })
+  </script>
+
   <div class="py-12">
     <div class="container mt-2">
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-right mb-2">
-                    {{-- <a class="btn btn-success" href="{{ route('books.create') }}"> Create Book</a> --}}
+                  @can('manage book')
+                  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createBook">Add Book</button>
+                  @endcan
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="createBook" tabindex="-1" role="dialog" aria-labelledby="createBook"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Create Book</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form role="form" method="POST" action="">
+                <div class="modal-body mx-3">
+                  <div class="md-form mb-5">
+                    <label class="control-label">Book Name</label>
+                    <input type="text" id="orangeForm-name" class="form-control validate" name="name">
+                  </div>
+                  <div class="md-form mb-5">
+                    <label class="control-label">Book Authors</label>
+                    <input type="text" id="orangeForm-email" class="form-control validate" name="authors">
+                  </div>
+                  <div class="md-form mb-5">
+                    <label class="control-label">Book Publisher</label>
+                    <input type="text" id="orangeForm-email" class="form-control validate" name="publisher">
+                  </div>
+                  <div class="md-form mb-5">
+                    <label class="control-label">Published Year</label>
+                    <input type="text" class="date-own form-control" name="published" id="published"/>
+                  </div>
+                  <div class="md-form mb-5">
+                    <label class="control-label">ISBN</label>
+                    <input type="text" class="form-control validate" name="isbn"/>
+                  </div>
+        
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                  <button class="btn btn-deep-orange" type="submit">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
