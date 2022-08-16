@@ -20,12 +20,13 @@
             <div class="col-lg-12 margin-tb">
                 <div class="pull-right mb-2">
                   @can('manage book')
-                  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createBook">Add Book</button>
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createBook">Add Book</button>
                   @endcan
                 </div>
             </div>
         </div>
 
+        {{-- Modal to create book --}}
         <div class="modal fade" id="createBook" tabindex="-1" role="dialog" aria-labelledby="createBook"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -37,6 +38,7 @@
                 </button>
               </div>
               <form role="form" method="POST" action="">
+                {{ csrf_field() }}
                 <div class="modal-body mx-3">
                   <div class="md-form mb-5">
                     <label class="control-label">Book Name</label>
@@ -76,12 +78,13 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Book Name</th>
                     <th>Book Authors</th>
                     <th>Book Publisher</th>
                     <th>Published Year</th>
                     <th>ISBN</th>
+                    <th>Status</th>
                     <th width="280px">Action</th>
                 </tr>
             </thead>
@@ -94,13 +97,16 @@
                         <td>{{ $book->publisher }}</td>
                         <td>{{ $book->published }}</td>
                         <td>{{ $book->isbn }}</td>
+                        <td>{{ $book->status }}</td>
                         <td>
-                            {{-- <form action="{{ route('books.destroy',$book->id) }}" method="Post">
-                                <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}">Edit</a>
+                            @can('manage book')
+                            <form action="{{ route('book.destroy',$book->id) }}" method="Post">
+                                <a class="btn btn-primary" href="{{ route('book.edit',$book->id) }}">Edit</a>
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Delete</button>
-                            </form> --}}
+                            </form>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

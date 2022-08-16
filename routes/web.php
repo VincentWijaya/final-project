@@ -23,5 +23,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/book', [BookController::class, 'index'])->middleware(['auth'])->name('book');
+Route::post('/book', [BookController::class, 'create'])->middleware(['auth'])->name('book.create');
+Route::put('/book', [BookController::class, 'update'])->middleware(['auth'])->name('book.edit');
+Route::delete('/book/delete/{id}', [BookController::class, 'destroy'])->middleware(['auth'])->name('book.destroy');
 
 require __DIR__.'/auth.php';
