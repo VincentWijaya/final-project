@@ -45,4 +45,18 @@ class BookController extends Controller
 
     return redirect()->route('book')->with('error','Some problem has occurred, please try again');
   }
+
+  public function update(Request $request, $id) {
+    dump($request);
+    $book = Book::find($request->id);
+    $book->name = $request['name'];
+    $book->authors = $request['authors'];
+    $book->publisher = $request['publisher'];
+    $book->published = $request['published'];
+    $book->isbn = $request['isbn'];
+    $book->status = $request['status'];
+    $book->save();
+
+    return redirect()->route('book')->with('success','Book has been updated successfully.');
+  }
 }
