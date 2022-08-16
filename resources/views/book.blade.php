@@ -160,6 +160,13 @@
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                             @endcan
+
+                            @if($book->status == 'Available')        
+                            <form action="{{ route('order.create',$book->id) }}" method="Post">
+                              {{ csrf_field() }}
+                              <button type="submit" class="btn btn-primary">Rent</button>
+                            </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

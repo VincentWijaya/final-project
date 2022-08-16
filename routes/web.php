@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +28,7 @@ Route::post('/book', [BookController::class, 'create'])->middleware(['auth'])->n
 Route::get('/book/{id}', [BookController::class, 'update'])->middleware(['auth'])->name('book.edit');
 Route::put('/book/{id}', [BookController::class, 'update'])->middleware(['auth'])->name('book.edit');
 Route::delete('/book/{id}', [BookController::class, 'destroy'])->middleware(['auth'])->name('book.destroy');
+
+Route::post('/order/${book_id}', [OrderController::class, 'create'])->middleware(['auth'])->name('order.create');
 
 require __DIR__.'/auth.php';
