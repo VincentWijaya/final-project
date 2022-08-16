@@ -11,8 +11,8 @@ class OrderController extends Controller
 {
   public function index() {
     $userId = Auth::id();
-    $orders = Order::where('user_id', $userId)::orderBy('id','desc')->paginate(5);
-    return view('order', compact(['books']));
+    $orders = Order::where('user_id', $userId)->paginate(5);
+    return view('order', compact(['orders']));
   }
 
   public function create($book_id) {
@@ -28,5 +28,19 @@ class OrderController extends Controller
     $book->save();
 
     return redirect()->route('book')->with('success','Book has been rented successfully.');
+  }
+
+  public function return($order_id) {
+    $userId = Auth::id();
+
+    $order = Order::find($order_id);
+    $order->status = 'Returned';
+    $order->save();
+
+    $book = Book::find($order->book_id);
+    $book->status = 'Available';
+    $book->save();
+
+    return redirect()->route('book')->with('success','Book has been return successfully.');
   }
 }

@@ -29,6 +29,8 @@ Route::get('/book/{id}', [BookController::class, 'update'])->middleware(['auth']
 Route::put('/book/{id}', [BookController::class, 'update'])->middleware(['auth'])->name('book.edit');
 Route::delete('/book/{id}', [BookController::class, 'destroy'])->middleware(['auth'])->name('book.destroy');
 
+Route::get('/order', [OrderController::class, 'index'])->middleware(['auth'])->name('order');
 Route::post('/order/${book_id}', [OrderController::class, 'create'])->middleware(['auth'])->name('order.create');
+Route::post('/order/return/${book_id}', [OrderController::class, 'return'])->middleware(['auth'])->name('order.return');
 
 require __DIR__.'/auth.php';
